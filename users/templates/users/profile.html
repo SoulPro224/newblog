@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
 </head>
 <body>
     <h2>User Profile</h2>
     {% if profile.avatar %}
-        {% comment %} <p>Avatar URL: {{ profile.avatar.url }}</p> {% endcomment %}
-        <img src="{{ profile.avatar.url }}" alt="Photo de {{ profile.user.username }}" class="avatar"/>
+    <img src="{{ profile.avatar.url }}" alt="Photo de {{ profile.user.username }}" width="150" height="150" class="avatar"/>
+        {% comment %} <img src="{{ profile.avatar.url }}" alt="Photo de {{ profile.user.username }}" class="avatar"/> {% endcomment %}
     {% else %}
         <img src="{% static 'media/avatars/ecolier.png' %}" alt="Default avatar" class="avatar"/>
     {% endif %}
