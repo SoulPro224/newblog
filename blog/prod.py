@@ -1,3 +1,3 @@
 from .settings import *
 
-ALLOWED_HOSTS = ['1000TechBlog.pythonanywhere.com']
+ALLOWED_HOSTS = ['soulpro.pythonanywhere.com']
