@@ -1,0 +1,47 @@
+{% extends 'article/base.html' %}
+{% block base %}
+<div class="row mb-2">
+    <div class="col-md-7">
+        <a href="{% url 'article:list_article' %}" class="btn btn-primary mb-3">Liste des articles</a>
+        <h1 class="mb-4">Formulaire de création d'un article</h1>
+    </div>
+</div>
+
+<form action="" method="post" class="row" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Les trois premiers champs à gauche -->
+    <div class="col-md-2">
+        <div class="mb-2">
+            <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-2">
+            <label for="{{ form.somary.id_for_label }}" class="form-label">{{ form.somary.label }}</label>
+            {{ form.somary }}
+        </div>
+        <div class="mb-2">
+            <label for="{{ form.date_pu.id_for_label }}" class="form-label">{{ form.date_pu.label }}</label>
+            {{ form.date_pu }}
+        </div>
+        <div class="mb-2">
+            <label for="{{ form.image.id_for_label }}" class="form-label">{{ form.image.label }}</label>
+            {{ form.image }}
+        </div>
+    </div>
+
+    <!-- Le champ "content" à droite -->
+    <div class="col-md-4">
+        <div class="mb-3">
+            <label for="{{ form.content.id_for_label }}" class="form-label">{{ form.content.label }}</label>
+            {{ form.content }}
+        </div>
+    </div>
+
+    <!-- Boutons de soumission et de réinitialisation -->
+    <div class="col-md-8">
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+        <button type="reset" class="btn btn-warning">Annuler</button>
+    </div>
+</form>
+{% endblock base %}

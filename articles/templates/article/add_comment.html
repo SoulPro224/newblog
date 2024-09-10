@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Commentaire</title>
+</head>
+<body>
+    <h1>Ajouter un Commentaire sur "{{ article.title }}"</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Soumettre le Commentaire</button>
+    </form>
+
+    <!-- Bouton pour Retourner au Détail de l'Article -->
+    <a href="{% url 'article:article_detail' pk=article.pk %}" class="btn btn-secondary">Retour au Détail de l'Article</a>
+</body>
+</html>

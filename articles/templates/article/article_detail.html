@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+    
+    {% if article.image %}
+    <img src="{{ article.image.url }}" alt="photo de {{ article.title }}" width="400" class="img-thumbnail">
+    {% endif %}
+    
+    <p>Auteur: {{ article.auteur }}</p>
+    <p>Sommaire: {{ article.somary }}</p>
+    <p>Contenu: {{ article.content }}</p>
+    <p>Date de publication: {{ article.date_pu }}</p>
+    <p>Dernière modification: {{ article.date_modification }}</p>
+
+    <!-- Section des Commentaires -->
+    <h2>Commentaires</h2>
+{% if comments %}
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.author }}: {{ comment.text }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun commentaire pour cet article.</p>
+{% endif %}
+
+    <!-- Bouton pour Ajouter un Commentaire -->
+    <a href="{% url 'article:add_comment' article.id %}" class="btn btn-primary">Ajouter un Commentaire</a> <br />
+
+    <!-- Boutons pour Modifier et Supprimer l'Article (affichés seulement pour l'auteur) -->
+{% if request.user == article.auteur %}
+<a href="{% url 'article:update_article' article.id %}" class="btn btn-primary">Modifier l'article</a>
+<form action="{% url 'article:delete_article' article.id %}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');" style="display:inline;">
+    {% csrf_token %}
+    <input type="submit" value="Supprimer l'article" class="btn btn-danger">
+</form>
+{% endif %}
+    <!-- Bouton pour Retourner à la Liste des Articles -->
+    <a href="{% url 'article:list_article' %}" class="btn btn-secondary">Retour à la liste des articles</a>
+</body>
+</html>

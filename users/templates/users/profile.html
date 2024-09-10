@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h2>User Profile</h2>
+    {% if profile.avatar %}
+        {% comment %} <p>Avatar URL: {{ profile.avatar.url }}</p> {% endcomment %}
+        <img src="{{ profile.avatar.url }}" alt="Photo de {{ profile.user.username }}" class="avatar"/>
+    {% else %}
+        <img src="{% static 'media/avatars/ecolier.png' %}" alt="Default avatar" class="avatar"/>
+    {% endif %}
+    <p>Username: {{ profile.user.username }}</p>
+    <p>Email: {{ profile.user.email }}</p>
+    <p>First name: {{ profile.user.first_name }}</p>
+    <p>Last name: {{ profile.user.last_name }}</p>
+    <p><a href="{% url 'user:profile_update' %}">Update Profile</a></p>
+    <p><a href="{% url 'user:logout' %}"> logout </a></p>
+</body>
+</html>
