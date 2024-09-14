@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DeleteView, UpdateView, CreateView, DetailView
@@ -12,6 +13,8 @@ class ArticleListView(ListView):
     model = Article
     template_name = 'article/list_article.html'
     context_object_name = 'article'
+    # queryset = Article.objects.filter(date_pu_lte=timezone.now())  : a revoir
+    queryset = Article.objects.all().order_by('-date_pu')
     
     def get_success_rul(self):
         return reverse('article:list_article')
@@ -37,18 +40,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('article:list_article')
-
-
-
-# class ArticleCreateView(LoginRequiredMixin,CreateView):
-#     model = Article
-#     form_class = Article_form
-#     template_name = 'article/formulaireArticle.html'
     
-#     def get_success_url(self):
-#         return reverse('article:list_article')
-    
-
 class ArticleUpdateView(LoginRequiredMixin,UpdateView):
     model = Article
     form_class = Article_form
@@ -57,19 +49,6 @@ class ArticleUpdateView(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse('article:list_article')
 
-# class ArticleUpdateView(LoginRequiredMixin, UpdateView):
-#     model = Article
-#     form_class = Article_form
-#     template_name = 'article/updateArticle.html'
-
-#     def dispatch(self, request, *args, **kwargs):
-#         article = self.get_object()
-#         if article.auteur != self.request.user:
-#             raise PermissionDenied("Vous n'êtes pas autorisé à modifier cet article.")
-#         return super().dispatch(request, *args, **kwargs)
-
-#     def get_success_url(self):
-#         return reverse('article:list_article')
 
 class ArticleDeleteView(LoginRequiredMixin,DeleteView):
     model = Article
